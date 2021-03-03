@@ -68,7 +68,7 @@ module.exports = {
     plugins: [
         new HtmlWebapckPlugin({
             template: path.resolve(__dirname, './public/index.html'),
-            filename: 'public/index.html'
+            filename: 'index.html'
         }),
         new MiniCssExtractPlugin({
             filename: 'assets/css/[name].[contenthash].css'
