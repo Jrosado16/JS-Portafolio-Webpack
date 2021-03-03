@@ -72,16 +72,15 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'assets/css/[name].[contenthash].css'
         }),
-        new CleanWebpackPlugin()
-
-        // new CopyPlugin({
-        //     patterns: [
-        //         {
-        //             from: path.resolve(__dirname, 'src', 'assets/images'),
-        //             to: 'assets/images'
-        //         }
-        //     ]
-        // })
+        new CleanWebpackPlugin(),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, 'src', 'assets/images'),
+                    to: 'assets/images'
+                }
+            ]
+        })
     ],
     optimization: {
         minimize: true,
