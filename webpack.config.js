@@ -5,6 +5,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const DovtEnv = require('dotenv-webpack');
 module.exports = {
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
@@ -73,6 +74,7 @@ module.exports = {
             filename: 'assets/css/[name].[contenthash].css'
         }),
         new CleanWebpackPlugin(),
+        new DovtEnv(),
         new CopyPlugin({
             patterns: [
                 {
