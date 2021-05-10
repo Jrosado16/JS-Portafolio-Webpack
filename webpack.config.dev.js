@@ -4,18 +4,21 @@ const HtmlWebapckPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const DovtEnv = require('dotenv-webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = {
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name][contenthash].js',
+        filename: 'js/[name].[contenthash].js',
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
     mode: 'development',
-    watch: true,
+    devtool: 'source-map',
     resolve: {
-        extensions: ['js'],
+        extensions: ['.js'],
         alias:{
             '@utils': path.resolve(__dirname, 'src/utils/'),
             '@templates': path.resolve(__dirname, 'src/templates/'),
@@ -24,15 +27,20 @@ module.exports = {
           }
     },
     devServer: {
+        contentBase: path.resolve(__dirname, 'dist'),
         port: 9000,
+        compress: true,
+        historyApiFallback: true,
         open: true
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.m?js$/,
                 exclude: /node_modules/,
-                use: 'babel-loader'
+                use: {
+                    loader: 'babel-loader'
+                }
             },
             {
                 test: /\.(s*)css$/,
@@ -70,9 +78,11 @@ module.exports = {
             template: path.resolve(__dirname, './public/index.html'),
             filename: 'index.html'
         }),
+        new DovtEnv(),
         new MiniCssExtractPlugin({
             filename: 'assets/css/[name].[contenthash].css'
         }),
+        new BundleAnalyzerPlugin(),
         new CopyPlugin({
             patterns: [
                 {

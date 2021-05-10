@@ -10,12 +10,12 @@ module.exports = {
     entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name][contenthash].js',
+        filename: 'js/[name].[contenthash].js',
         assetModuleFilename: 'assets/images/[hash][ext][query]'
     },
     mode: 'production',
     resolve: {
-        extensions: ['js'],
+        extensions: ['.js'],
         alias:{
             '@utils': path.resolve(__dirname, 'src/utils/'),
             '@templates': path.resolve(__dirname, 'src/templates/'),
